@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IncPay Glass Nav</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:-apple-system,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:#04060a;color:#fff;overflow:hidden;position:fixed;inset:0}
+.amb{position:fixed;inset:0;background:radial-gradient(60% 40% at 20% 8%,rgba(46,134,255,.17),transparent 62%),radial-gradient(50% 35% at 85% 18%,rgba(0,209,178,.13),transparent 60%),radial-gradient(70% 45% at 50% 100%,rgba(120,80,255,.11),transparent 65%)}
+.statusbar{position:fixed;top:0;left:0;right:0;height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12.5px;font-weight:600;z-index:60;pointer-events:none}
+.app{position:fixed;top:34px;left:0;right:0;bottom:0}
+.screen{position:absolute;inset:0;overflow-y:auto;padding:10px 18px 132px;opacity:0;transform:translateY(14px) scale(.985);pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.22,1,.36,1);scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{opacity:1;transform:none;pointer-events:auto}
+.h1{font-size:27px;font-weight:750;letter-spacing:-.5px;margin:12px 0 4px}
+.sub{color:rgba(255,255,255,.55);font-size:13px;margin-bottom:18px}
+.card{border-radius:26px;padding:24px;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.13);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%)}
+.bal .lb{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.8px;text-transform:uppercase;font-weight:600}
+.bal .usd{font-size:42px;font-weight:750;letter-spacing:-1.2px;margin:9px 0 3px}
+.bal .ngn{color:rgba(255,255,255,.66);font-size:14px}
+.row{display:flex;gap:10px;margin-top:18px}
+.act{flex:1;padding:13px 0;border-radius:16px;text-align:center;font-size:14px;font-weight:650;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
+.act.primary{background:#fff;color:#04060a;border-color:#fff}
+.sect{margin:24px 0 11px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.58);letter-spacing:.5px;text-transform:uppercase}
+.tile{display:flex;align-items:center;gap:14px;padding:15px 16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);margin-bottom:10px}
+.tile .ic{width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;flex:none}
+.tile .t{font-size:15px;font-weight:650}
+.tile .d{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.field{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:15px 16px;margin-bottom:12px}
+.field .fl{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.field .fv{font-size:17px;font-weight:600}
+.qr{width:170px;height:170px;border-radius:22px;background:#fff;margin:8px auto;display:grid;place-items:center}
+.qr svg{width:130px;height:130px}
+.tabbar{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:64px;border-radius:32px;display:flex;z-index:50;background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid rgba(255,255,255,.15);box-shadow:0 10px 34px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(255,255,255,.04)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(255,255,255,.5);font-size:10px;font-weight:650;letter-spacing:.3px;background:none;border:0;position:relative;z-index:2;transition:color .3s}
+.tab.on{color:#fff}
+.tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pill{position:absolute;top:8px;bottom:8px;width:56px;border-radius:26px;background:rgba(255,255,255,.13);z-index:1;transition:transform .55s cubic-bezier(.3,1.4,.42,1),opacity .3s;box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.ai-orb{position:fixed;z-index:55;width:52px;height:52px;border-radius:50%;bottom:calc(96px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;cursor:grab;transition:box-shadow .3s,left .45s cubic-bezier(.3,1.3,.4,1);touch-action:none;background:radial-gradient(120% 120% at 30% 25%,rgba(255,255,255,.24),rgba(255,255,255,.06));-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.24);box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 26px rgba(96,160,255,.28),inset 0 1px 0 rgba(255,255,255,.26)}
+.ai-orb svg{width:23px;height:23px;fill:#fff;opacity:.95}
+.chat{position:fixed;left:14px;right:14px;bottom:calc(160px + env(safe-area-inset-bottom));max-height:56vh;z-index:56;border-radius:26px;background:rgba(18,22,30,.74);-webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;opacity:0;transform:translateY(20px) scale(.97);pointer-events:none;transition:opacity .35s ease,transform .42s cubic-bezier(.22,1,.36,1)}
+.chat.open{opacity:1;transform:none;pointer-events:auto}
+.chat .hd{padding:13px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:700}
+.chat .hd .x{opacity:.55;font-weight:400}
+.chat .msgs{padding:14px 16px 6px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:84%;padding:11px 14px;border-radius:16px;font-size:13.5px;line-height:1.45}
+.msg.ai{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09)}
+.msg.me{align-self:flex-end;background:#fff;color:#04060a}
+.chips{display:flex;gap:8px;padding:8px 16px 12px;flex-wrap:wrap}
+.chip{padding:9px 13px;border-radius:14px;font-size:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13)}
+.wcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:13px 15px;font-size:12.5px;line-height:1.5;max-width:92%}
+.wcard b{font-size:13.5px}
+.wcard .ln{display:flex;justify-content:space-between;color:rgba(255,255,255,.75)}
+.wcard .ln.tot{color:#fff;font-weight:650;border-top:1px solid rgba(255,255,255,.12);margin-top:6px;padding-top:6px}
+.wcard .btns{display:flex;gap:8px;margin-top:11px}
+.wcard button{flex:1;padding:9px;border-radius:11px;font-size:12.5px;font-weight:650;border:0}
+.wcard .ok{background:#fff;color:#000}
+.wcard .no{background:rgba(255,255,255,.10);color:#fff}
+.chat .inrow{display:flex;gap:8px;padding:10px 14px 14px}
+.chat input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:11px 14px;color:#fff;font-size:14px;outline:none}
+.chat .send{width:44px;border-radius:16px;background:#fff;color:#000;border:0;font-weight:800}
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(10px);bottom:calc(170px + env(safe-area-inset-bottom));background:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);padding:11px 18px;border-radius:18px;font-size:13px;z-index:70;opacity:0;transition:.35s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class="amb"></div>
+<div class="statusbar"><span>12:50</span><span class="sicons">&#9679;&#9679;&#9679;&nbsp;5G&nbsp;&#9679;</span></div>
+<div class="app">
+  <section class="screen on" id="s-home">
+    <div class="h1">Home</div><div class="sub">Good afternoon, Adeniyi</div>
+    <div class="card bal"><div class="lb">Total balance</div><div class="usd">$3,984.02</div><div class="ngn">&#8358;5,976,030.00</div>
+      <div class="row"><div class="act primary">Send</div><div class="act">Receive</div><div class="act">Withdraw</div></div></div>
+    <div class="sect">Recent</div>
+    <div class="tile"><div class="ic">&#8593;</div><div><div class="t">Tunde Bakare</div><div class="d">Sent &#8358;12,000 &middot; Today, 9:41 AM</div></div></div>
+    <div class="tile"><div class="ic">&#8595;</div><div><div class="t">Virtual account top-up</div><div class="d">Received &#8358;50,000 &middot; Yesterday</div></div></div>
+    <div class="tile"><div class="ic">&#8593;</div><div><div class="t">Chiamaka O.</div><div class="d">Sent $25.00 &middot; Mon, Nov 23</div></div></div>
+    <div class="tile"><div class="ic">&#8595;</div><div><div class="t">KuCoin withdrawal</div><div class="d">Received $300.00 &middot; Mon, Nov 23</div></div></div>
+    <div class="tile"><div class="ic">&#8593;</div><div><div class="t">Airtime &middot; MTN</div><div class="d">&#8358;2,000 &middot; Sun, Nov 22</div></div></div>
+    <div class="tile"><div class="ic">&#8595;</div><div><div class="t">Musa Danjuma</div><div class="d">Received &#8358;8,500 &middot; Sun, Nov 22</div></div></div>
+    <div class="tile"><div class="ic">&#8593;</div><div><div class="t">Fatima S.</div><div class="d">Sent &#8358;30,000 &middot; Sat, Nov 21</div></div></div>
+    <div class="tile"><div class="ic">&#8595;</div><div><div class="t">Salary &middot; Grandville Hotel</div><div class="d">Received &#8358;30,000 &middot; Fri, Nov 20</div></div></div>
+  </section>
+  <section class="screen" id="s-send">
+    <div class="h1">Send</div><div class="sub">To a contact, bank or IncPay tag</div>
+    <div class="field"><div class="fl">Recipient</div><div class="fv">Choose contact or enter account</div></div>
+    <div class="field"><div class="fl">Amount</div><div class="fv">&#8358;0.00</div></div>
+    <div class="sect">Recents</div>
+    <div class="tile"><div class="ic">T</div><div><div class="t">Tunde Bakare</div><div class="d">GTBank &middot; 0123&#8226;&#8226;&#8226;4021</div></div></div>
+    <div class="tile"><div class="ic">C</div><div><div class="t">Chiamaka O.</div><div class="d">IncPay tag &middot; @chiamaka</div></div></div>
+    <div class="tile"><div class="ic">M</div><div><div class="t">Musa Danjuma</div><div class="d">Kuda &middot; 2011&#8226;&#8226;&#8226;8830</div></div></div>
+  </section>
+  <section class="screen" id="s-receive">
+    <div class="h1">Receive</div><div class="sub">Share your tag or account details</div>
+    <div class="card" style="text-align:center">
+      <div class="qr"><svg viewBox="0 0 100 100"><g fill="#000"><rect x="8" y="8" width="26" height="26"/><rect x="14" y="14" width="14" height="14" fill="#fff"/><rect x="66" y="8" width="26" height="26"/><rect x="72" y="14" width="14" height="14" fill="#fff"/><rect x="8" y="66" width="26" height="26"/><rect x="14" y="72" width="14" height="14" fill="#fff"/><rect x="42" y="8" width="6" height="6"/><rect x="52" y="14" width="6" height="6"/><rect x="42" y="26" width="8" height="6"/><rect x="8" y="42" width="6" height="8"/><rect x="20" y="46" width="10" height="6"/><rect x="36" y="42" width="8" height="8"/><rect x="50" y="44" width="6" height="10"/><rect x="62" y="42" width="8" height="6"/><rect x="76" y="46" width="10" height="6"/><rect x="42" y="60" width="6" height="6"/><rect x="52" y="64" width="8" height="6"/><rect x="66" y="60" width="6" height="8"/><rect x="78" y="64" width="6" height="6"/><rect x="42" y="78" width="10" height="6"/><rect x="58" y="76" width="6" height="10"/><rect x="70" y="78" width="8" height="6"/></g></svg></div>
+      <div class="fl" style="font-size:11px;color:rgba(0,0,0,.5);letter-spacing:.5px;font-weight:700;margin-top:6px">@0xleetv &middot; IncPay tag</div>
+      <div style="font-size:12px;color:rgba(0,0,0,.6);margin-top:4px">Virtual account &middot; 9021 &#8226;&#8226;&#8226; 7788 &middot; Wema Bank</div>
+    </div>
+  </section>
+  <section class="screen" id="s-services">
+    <div class="h1">Services</div><div class="sub">Airtime, data and bills</div>
+    <div class="tile"><div class="ic">&#128241;</div><div><div class="t">Airtime</div><div class="d">MTN, Glo, Airtel, 9mobile</div></div></div>
+    <div class="tile"><div class="ic">&#127760;</div><div><div class="t">Data</div><div class="d">All networks</div></div></div>
+    <div class="tile"><div class="ic">&#9889;</div><div><div class="t">Electricity</div><div class="d">Prepaid and postpaid</div></div></div>
+    <div class="tile"><div class="ic">&#128250;</div><div><div class="t">Cable TV</div><div class="d">DStv, GOtv, Startimes</div></div></div>
+  </section>
+  <section class="screen" id="s-profile">
+    <div class="h1">Profile</div><div class="sub">Adeniyi Kolawole &middot; @0xleetv</div>
+    <div class="tile"><div class="ic">&#128274;</div><div><div class="t">Identity &amp; limits</div><div class="d">Tier 2 verified</div></div></div>
+    <div class="tile"><div class="ic">&#127968;</div><div><div class="t">Linked banks</div><div class="d">2 accounts</div></div></div>
+    <div class="tile"><div class="ic">&#9881;</div><div><div class="t">Settings</div><div class="d">Appearance, AI placement, security</div></div></div>
+  </section>
+</div>
+<div class="pill" id="pill"></div>
+<nav class="tabbar" id="tabbar">
+  <button class="tab" data-i="0"><svg viewBox="0 0 24 24"><path d="M12 19V5M12 5l-6 6M12 5l6 6"/></svg>Send</button>
+  <button class="tab" data-i="1"><svg viewBox="0 0 24 24"><path d="M12 5v14M12 19l6-6M12 19l-6-6"/></svg>Receive</button>
+  <button class="tab on" data-i="2"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5"/></svg>Home</button>
+  <button class="tab" data-i="3"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>Services</button>
+  <button class="tab" data-i="4"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>Profile</button>
+</nav>
+<div class="ai-orb" id="orb" style="left:18px"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9L19 15z"/></svg></div>
+<div class="chat" id="chat">
+  <div class="hd"><span>IncPay AI</span><span class="x" id="chatx">Close</span></div>
+  <div class="msgs" id="msgs"><div class="msg ai">Hey Adeniyi. I can send money, buy airtime, run a withdrawal, or answer anything about your balance. Just ask.</div></div>
+  <div class="chips"><button class="chip" id="chipW">Run a withdrawal</button><button class="chip">Buy &#8358;1,000 MTN airtime</button><button class="chip">Send &#8358;2,000 to Tunde</button></div>
+  <div class="inrow"><input id="chatin" placeholder="Ask anything..."><button class="send" id="chatsend">&#8594;</button></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var screens=['s-send','s-receive','s-home','s-services','s-profile'];
+var tabs=document.querySelectorAll('.tab'), pill=document.getElementById('pill');
+var cur=2;
+function placePill(){var t=tabs[cur];pill.style.transform='translateX('+t.offsetLeft+'px)';}
+function setTab(i){if(i===cur&&document.getElementById(screens[i]).classList.contains('on'))return;document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('on')});document.getElementById(screens[i]).classList.add('on');tabs[cur].classList.remove('on');cur=i;tabs[cur].classList.add('on');placePill();}
+tabs.forEach(function(t){t.addEventListener('click',function(){setTab(parseInt(t.dataset.i))})});
+var orb=document.getElementById('orb'),chat=document.getElementById('chat');
+var side='left';
+function setOrbSide(s){side=s;orb.style.left=s==='left'?'18px':(window.innerWidth-70)+'px';}
+orb.addEventListener('pointerdown',function(e){e.preventDefault();orb.style.transition='none';var sx=e.clientX,startL=orb.offsetLeft;moved=0;
+ function mv(ev){var dx=ev.clientX-sx;var nl=Math.max(10,Math.min(window.innerWidth-62,startL+dx));orb.style.left=nl+'px';moved=1;}
+ function up(){document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);orb.style.transition='';if(!moved){toggleChat();return;}var cx=orb.offsetLeft+26;setOrbSide(cx>window.innerWidth/2?'right':'left');}
+ document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);});
+var moved=0;
+function toggleChat(){chat.classList.toggle('open');}
+document.getElementById('chatx').addEventListener('click',toggleChat);
+var msgs=document.getElementById('msgs');
+function addMsg(cls,html){var d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
+document.getElementById('chipW').addEventListener('click',function(){
+ addMsg('me','Run a withdrawal for me');
+ setTimeout(function(){addMsg('ai','<div class="wcard"><b>Withdrawal confirmation</b><div class="ln"><span>Amount</span><span>&#8358;5,000.00</span></div><div class="ln"><span>Destination</span><span>GTBank &bull;&bull;4021</span></div><div class="ln"><span>Withdrawal fee</span><span>&#8358;10.00 + &#8358;0.75 VAT</span></div><div class="ln"><span>Stamp duty</span><span>&#8358;0.00</span></div><div class="ln tot"><span>You will be credited</span><span>&#8358;4,989.25</span></div><div class="btns"><button class="ok" id="wok">Confirm</button><button class="no">Cancel</button></div></div>');
+ document.getElementById('wok').addEventListener('click',function(){addMsg('ai','Withdrawal submitted. &#8358;4,989.25 is on its way to GTBank &bull;&bull;4021, usually lands in under two minutes.');toast('Withdrawal submitted');});},700);
+});
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on')},2200);}
+placePill();window.addEventListener('resize',function(){placePill();setOrbSide(side)});
+if(location.search.indexOf('auto')>-1){
+ var home=document.getElementById('s-home');
+ var T=[[0,function(){setTab(2)}],[1300,function(){home.scrollTo({top:480,behavior:'smooth'})}],[2600,function(){home.scrollTo({top:1050,behavior:'smooth'})}],[4000,function(){home.scrollTo({top:0,behavior:'smooth'})}],[4900,function(){setTab(0)}],[6100,function(){setTab(1)}],[7300,function(){setTab(3)}],[8500,function(){setTab(4)}],[9700,function(){setTab(2)}],[10500,function(){setOrbSide('right')}],[11500,function(){if(!chat.classList.contains('open'))toggleChat()}],[12800,function(){document.getElementById('chipW').click()}]];
+ T.forEach(function(st){setTimeout(st[1],st[0])});
+}
+</script>
+</body>
+</html>
