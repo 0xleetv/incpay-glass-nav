@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>IncPay Glass Nav</title>
 <style>
+:root{--spd:1}.slow{--spd:3}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:-apple-system,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:#04060a;color:#fff;overflow:hidden;position:fixed;inset:0}
 .amb{position:fixed;inset:0;background:radial-gradient(60% 40% at 20% 8%,rgba(46,134,255,.17),transparent 62%),radial-gradient(50% 35% at 85% 18%,rgba(0,209,178,.13),transparent 60%),radial-gradient(70% 45% at 50% 100%,rgba(120,80,255,.11),transparent 65%)}
 .statusbar{position:fixed;top:0;left:0;right:0;height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12.5px;font-weight:600;z-index:60;pointer-events:none}
 .app{position:fixed;top:34px;left:0;right:0;bottom:0}
-.screen{position:absolute;inset:0;overflow-y:auto;padding:10px 18px 132px;opacity:0;transform:translateY(14px) scale(.985);pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.22,1,.36,1);scrollbar-width:none}
+.screen{position:absolute;inset:0;overflow-y:auto;padding:10px 18px 132px;opacity:0;transform:translateY(14px) scale(.985);pointer-events:none;transition:opacity calc(.4s*var(--spd)) ease,transform calc(.5s*var(--spd)) cubic-bezier(.22,1,.36,1);scrollbar-width:none}
 .screen::-webkit-scrollbar{display:none}
 .screen.on{opacity:1;transform:none;pointer-events:auto}
 .h1{font-size:27px;font-weight:750;letter-spacing:-.5px;margin:12px 0 4px}
@@ -34,13 +35,13 @@ body{font-family:-apple-system,'SF Pro Display','Segoe UI',Roboto,sans-serif;bac
 .qr{width:170px;height:170px;border-radius:22px;background:#fff;margin:8px auto;display:grid;place-items:center}
 .qr svg{width:130px;height:130px}
 .tabbar{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:64px;border-radius:32px;display:flex;z-index:50;background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid rgba(255,255,255,.15);box-shadow:0 10px 34px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.17),inset 0 -1px 0 rgba(255,255,255,.04)}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(255,255,255,.5);font-size:10px;font-weight:650;letter-spacing:.3px;background:none;border:0;position:relative;z-index:2;transition:color .3s}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:rgba(255,255,255,.5);font-size:10px;font-weight:650;letter-spacing:.3px;background:none;border:0;position:relative;z-index:2;transition:color calc(.3s*var(--spd))}
 .tab.on{color:#fff}
 .tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.pill{position:absolute;top:8px;bottom:8px;width:56px;border-radius:26px;background:rgba(255,255,255,.13);z-index:1;transition:transform .55s cubic-bezier(.3,1.4,.42,1),opacity .3s;box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
-.ai-orb{position:fixed;z-index:55;width:52px;height:52px;border-radius:50%;bottom:calc(96px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;cursor:grab;transition:box-shadow .3s,left .45s cubic-bezier(.3,1.3,.4,1);touch-action:none;background:radial-gradient(120% 120% at 30% 25%,rgba(255,255,255,.24),rgba(255,255,255,.06));-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.24);box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 26px rgba(96,160,255,.28),inset 0 1px 0 rgba(255,255,255,.26)}
+.pill{position:absolute;top:8px;bottom:8px;width:56px;border-radius:26px;background:rgba(255,255,255,.13);z-index:1;transition:transform calc(.55s*var(--spd)) cubic-bezier(.3,1.4,.42,1),opacity calc(.3s*var(--spd));box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+.ai-orb{position:fixed;z-index:55;width:52px;height:52px;border-radius:50%;bottom:calc(96px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;cursor:grab;transition:box-shadow calc(.3s*var(--spd)),left calc(.45s*var(--spd)) cubic-bezier(.3,1.3,.4,1);touch-action:none;background:radial-gradient(120% 120% at 30% 25%,rgba(255,255,255,.24),rgba(255,255,255,.06));-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);border:1px solid rgba(255,255,255,.24);box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 26px rgba(96,160,255,.28),inset 0 1px 0 rgba(255,255,255,.26)}
 .ai-orb svg{width:23px;height:23px;fill:#fff;opacity:.95}
-.chat{position:fixed;left:14px;right:14px;bottom:calc(160px + env(safe-area-inset-bottom));max-height:56vh;z-index:56;border-radius:26px;background:rgba(18,22,30,.74);-webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;opacity:0;transform:translateY(20px) scale(.97);pointer-events:none;transition:opacity .35s ease,transform .42s cubic-bezier(.22,1,.36,1)}
+.chat{position:fixed;left:14px;right:14px;bottom:calc(160px + env(safe-area-inset-bottom));max-height:56vh;z-index:56;border-radius:26px;background:rgba(18,22,30,.74);-webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;opacity:0;transform:translateY(20px) scale(.97);pointer-events:none;transition:opacity calc(.35s*var(--spd)) ease,transform calc(.42s*var(--spd)) cubic-bezier(.22,1,.36,1)}
 .chat.open{opacity:1;transform:none;pointer-events:auto}
 .chat .hd{padding:13px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px;font-weight:700}
 .chat .hd .x{opacity:.55;font-weight:400}
@@ -152,14 +153,15 @@ function addMsg(cls,html){var d=document.createElement('div');d.className='msg '
 document.getElementById('chipW').addEventListener('click',function(){
  addMsg('me','Run a withdrawal for me');
  setTimeout(function(){addMsg('ai','<div class="wcard"><b>Withdrawal confirmation</b><div class="ln"><span>Amount</span><span>&#8358;5,000.00</span></div><div class="ln"><span>Destination</span><span>GTBank &bull;&bull;4021</span></div><div class="ln"><span>Withdrawal fee</span><span>&#8358;10.00 + &#8358;0.75 VAT</span></div><div class="ln"><span>Stamp duty</span><span>&#8358;0.00</span></div><div class="ln tot"><span>You will be credited</span><span>&#8358;4,989.25</span></div><div class="btns"><button class="ok" id="wok">Confirm</button><button class="no">Cancel</button></div></div>');
- document.getElementById('wok').addEventListener('click',function(){addMsg('ai','Withdrawal submitted. &#8358;4,989.25 is on its way to GTBank &bull;&bull;4021, usually lands in under two minutes.');toast('Withdrawal submitted');});},700);
+ document.getElementById('wok').addEventListener('click',function(){addMsg('ai','Withdrawal submitted. &#8358;4,989.25 is on its way to GTBank &bull;&bull;4021, usually lands in under two minutes.');toast('Withdrawal submitted');});},700*S);
 });
 function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on')},2200);}
 placePill();window.addEventListener('resize',function(){placePill();setOrbSide(side)});
+var S=location.search.indexOf('slow')>-1?3:1;if(S>1)document.documentElement.className='slow';
 if(location.search.indexOf('auto')>-1){
  var home=document.getElementById('s-home');
  var T=[[0,function(){setTab(2)}],[1300,function(){home.scrollTo({top:480,behavior:'smooth'})}],[2600,function(){home.scrollTo({top:1050,behavior:'smooth'})}],[4000,function(){home.scrollTo({top:0,behavior:'smooth'})}],[4900,function(){setTab(0)}],[6100,function(){setTab(1)}],[7300,function(){setTab(3)}],[8500,function(){setTab(4)}],[9700,function(){setTab(2)}],[10500,function(){setOrbSide('right')}],[11500,function(){if(!chat.classList.contains('open'))toggleChat()}],[12800,function(){document.getElementById('chipW').click()}]];
- T.forEach(function(st){setTimeout(st[1],st[0])});
+ T.forEach(function(st){setTimeout(st[1],st[0]*S)});
 }
 </script>
 </body>
